@@ -1,6 +1,8 @@
 package org.sopt.at.ui.onboarding.screen
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -30,6 +32,7 @@ import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.Gray100
+import java.util.regex.Pattern
 
 class SignUpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +46,19 @@ class SignUpActivity : ComponentActivity() {
                 var idInputText by remember { mutableStateOf("") }
                 var pwdInputText by remember { mutableStateOf("") }
 
+                // id 유효성 검사하는 함수
+                fun isValidId(input: String): Boolean {
+                    val regex = "^[a-z0-9]{6,12}$".toRegex()
+                    return input.matches(regex)
+                }
+
+                // pwd 유효성 검사하는 함수
+                fun isValidPwd(input: String): Boolean {
+                    val regex =
+                        Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[~!@#\$%^&*])[A-Za-z\\d~!@#\$%^&*]{8,15}")
+                    return regex.matcher(input).matches()
+                }
+
                 if (isFirstStep) {
                     // '아이디를 입력해주세요.' 화면
                     SignUpScreen(
@@ -53,7 +69,12 @@ class SignUpActivity : ComponentActivity() {
                         onTextChanged = { idInputText = it },
                         inputfieldRuleId = R.string.id_rule,
                         onNextBtnClicked = {
-                            isFirstStep = false
+                            if (isValidId(idInputText)) {
+                                isFirstStep = false
+                            } else {
+                                Toast.makeText(this, "아이디 형식을 다시 확인해주세요.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
                     )
                 }
@@ -71,7 +92,22 @@ class SignUpActivity : ComponentActivity() {
                         isPwdField = true,
                         isPwdVisible = isPwdVisible,
                         onPwdVisibleToggle = { isPwdVisible = !isPwdVisible },
-                        onNextBtnClicked = { /* TODO: 버튼 클릭 시 처리 */ }
+                        onNextBtnClicked = {
+                            if (isValidPwd(pwdInputText)) {
+                                Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT)
+                                    .show()
+                                val intent =
+                                    Intent(this@SignUpActivity, SignInActivity::class.java).apply {
+                                        putExtra("id", idInputText)
+                                        putExtra("pwd", pwdInputText)
+                                    }
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                Toast.makeText(this, "비밀번호 형식을 다시 확인해주세요.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
                     )
                 }
             }

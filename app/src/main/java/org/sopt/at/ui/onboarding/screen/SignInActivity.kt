@@ -2,6 +2,7 @@ package org.sopt.at.ui.onboarding.screen
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -27,40 +28,47 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
+import org.sopt.at.ui.mypage.screen.MyActivity
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.Gray100
 import org.sopt.at.ui.theme.Gray200
 
 class SignInActivity : ComponentActivity() {
+    private var registeredId: String? = null
+    private var registeredPwd: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 회원가입에서 넘어온 정보 받기
+        registeredId = intent.getStringExtra("id")
+        registeredPwd = intent.getStringExtra("pwd")
+
         enableEdgeToEdge()
         setContent {
             ATSOPTANDROIDTheme {
-                SignInScreen()
+                SignInScreen(registeredId, registeredPwd)
             }
         }
     }
 }
 
-@Preview
 @Composable
-fun SignInScreen() {
+fun SignInScreen(
+    registeredId: String?,
+    registeredPwd: String?
+) {
     var idInputText by remember { mutableStateOf("") }
     var pwdInputText by remember { mutableStateOf("") }
     var isPwdVisible by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
-    val intent = Intent(context, SignUpActivity::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-    }
 
     Column(
         modifier = Modifier
@@ -114,7 +122,19 @@ fun SignInScreen() {
             containerColor = Gray200,
             contentColor = Gray100,
             text = stringResource(R.string.login_action),
-            onClick = { /* TODO: 버튼 클릭 시 처리 */ }
+            onClick = {
+                if (idInputText == registeredId && pwdInputText == registeredPwd) {
+                    // 로그인 성공 → MyActivity로 이동
+                    val intent = Intent(context, MyActivity::class.java).apply {
+                        putExtra("id", idInputText)
+                        putExtra("pwd", pwdInputText)
+                    }
+                    context.startActivity(intent)
+                } else {
+                    // 로그인 실패 → Toast 띄우기
+                    Toast.makeText(context, "아이디 또는 비밀번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -150,7 +170,12 @@ fun SignInScreen() {
                 text = stringResource(R.string.signup),
                 fontSize = 16.sp,
                 color = Gray100,
-                modifier = Modifier.clickable { context.startActivity(intent) }
+                modifier = Modifier.clickable {
+                    val intent = Intent(context, SignUpActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                    context.startActivity(intent)
+                }
             )
         }
     }
