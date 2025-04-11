@@ -1,5 +1,6 @@
 package org.sopt.at.ui.mypage.screen
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
+import org.sopt.at.ui.onboarding.screen.SignInActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.Gray100
 
@@ -49,6 +52,11 @@ class MyActivity : ComponentActivity() {
 fun MyScreen(
     profileId: String
 ) {
+    val context = LocalContext.current
+    val intent = Intent(context, SignInActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -93,7 +101,7 @@ fun MyScreen(
             containerColor = Color.Black,
             contentColor = Gray100,
             text = stringResource(R.string.logout),
-            onClick = { /* TODO: 버튼 클릭 시 처리 */ },
+            onClick = { context.startActivity(intent) },
             strokeColor = Gray100
         )
     }
