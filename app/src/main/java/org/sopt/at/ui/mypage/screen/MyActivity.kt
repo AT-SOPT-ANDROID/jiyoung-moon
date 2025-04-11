@@ -35,14 +35,22 @@ import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.Gray100
 
 class MyActivity : ComponentActivity() {
+    private var loggedInId: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 로그인에서 넘어온 정보 받기
+        loggedInId = intent.getStringExtra("id")
+
         enableEdgeToEdge()
         setContent {
             ATSOPTANDROIDTheme {
-                MyScreen(
-                    profileId = "test"  // TODO: 회원가입 시 작성한 아이디 표시하기
-                )
+                loggedInId?.let {
+                    MyScreen(
+                        profileId = it
+                    )
+                }
             }
         }
     }
