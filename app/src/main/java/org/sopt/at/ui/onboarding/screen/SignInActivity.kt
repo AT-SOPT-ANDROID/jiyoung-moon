@@ -1,5 +1,6 @@
 package org.sopt.at.ui.onboarding.screen
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,6 +56,11 @@ fun SignInScreen() {
     var idInputText by remember { mutableStateOf("") }
     var pwdInputText by remember { mutableStateOf("") }
     var isPwdVisible by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val intent = Intent(context, SignUpActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+    }
 
     Column(
         modifier = Modifier
@@ -143,7 +150,7 @@ fun SignInScreen() {
                 text = stringResource(R.string.signup),
                 fontSize = 16.sp,
                 color = Gray100,
-                modifier = Modifier.clickable { /* TODO: 텍스트 클릭 시 처리 */ }
+                modifier = Modifier.clickable { context.startActivity(intent) }
             )
         }
     }
