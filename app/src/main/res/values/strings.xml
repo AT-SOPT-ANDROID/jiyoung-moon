@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AT SOPT ANDROID</string>
+
+    <string name="tving_eng">TVING</string>
+    <string name="id_eng">ID</string>
+    <string name="id_kor">아이디</string>
+    <string name="pwd_kor">비밀번호</string>
+    <string name="login">로그인</string>
+    <string name="login_action">로그인하기</string>
 </resources>
