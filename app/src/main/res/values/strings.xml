@@ -8,4 +8,6 @@
     <string name="login">로그인</string>
     <string name="login_action">로그인하기</string>
     <string name="next">다음</string>
+    <string name="find">찾기</string>
+    <string name="signup">회원가입</string>
 </resources>
