@@ -50,8 +50,7 @@ fun ButtonComponent(
     ) {
         Text(
             text = text,
-            fontSize = 16.sp,
-            color = contentColor
+            fontSize = 16.sp
         )
     }
 }
