@@ -35,8 +35,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.Gray100
-import org.sopt.at.ui.theme.Gray300
+import org.sopt.at.ui.theme.Gray3
+import org.sopt.at.ui.theme.Gray5
 
 @Composable
 fun InputFieldComponent(
@@ -54,7 +54,7 @@ fun InputFieldComponent(
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
-            .background(color = Gray300, shape = RoundedCornerShape(6.dp))
+            .background(color = Gray5, shape = RoundedCornerShape(6.dp))
             .padding(10.dp),
         textStyle = TextStyle.Default.copy(fontSize = 16.sp, color = Color.White),
         visualTransformation = if (isPwdField && !isPwdVisible) PasswordVisualTransformation() else VisualTransformation.None,
@@ -70,7 +70,7 @@ fun InputFieldComponent(
                         Text(
                             text = placeholder,
                             fontSize = 16.sp,
-                            color = Gray100,
+                            color = Gray3,
                         )
                     }
                     innerTextField()
@@ -90,7 +90,7 @@ fun InputFieldComponent(
                                 R.drawable.ic_eye_on
                             ),
                             contentDescription = "눈 아이콘",
-                            tint = Gray100,
+                            tint = Gray3,
                             modifier = Modifier.fillMaxHeight()
                         )
                     }

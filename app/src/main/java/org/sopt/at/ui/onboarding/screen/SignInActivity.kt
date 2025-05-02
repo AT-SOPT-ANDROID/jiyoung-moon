@@ -36,8 +36,8 @@ import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.mypage.screen.MyActivity
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.Gray100
-import org.sopt.at.ui.theme.Gray200
+import org.sopt.at.ui.theme.Gray3
+import org.sopt.at.ui.theme.Gray4
 
 class SignInActivity : ComponentActivity() {
     private var registeredId: String? = null
@@ -119,8 +119,8 @@ fun SignInScreen(
 
         // '로그인하기' btn
         ButtonComponent(
-            containerColor = Gray200,
-            contentColor = Gray100,
+            containerColor = Gray4,
+            contentColor = Gray3,
             text = stringResource(R.string.login_action),
             onClick = {
                 if (idInputText == registeredId && pwdInputText == registeredPwd) {
@@ -147,29 +147,29 @@ fun SignInScreen(
             Text(  // 아이디 찾기
                 text = stringResource(R.string.id_kor) + " " + stringResource(R.string.find),
                 fontSize = 16.sp,
-                color = Gray100,
+                color = Gray3,
                 modifier = Modifier.clickable { /* TODO: 텍스트 클릭 시 처리 */ }
             )
             Text(
                 text = "  |  ",
                 fontSize = 16.sp,
-                color = Gray100
+                color = Gray3
             )
             Text(  // 비밀번호 찾기
                 text = stringResource(R.string.pwd_kor) + " " + stringResource(R.string.find),
                 fontSize = 16.sp,
-                color = Gray100,
+                color = Gray3,
                 modifier = Modifier.clickable { /* TODO: 텍스트 클릭 시 처리 */ }
             )
             Text(
                 text = "  |  ",
                 fontSize = 16.sp,
-                color = Gray100
+                color = Gray3
             )
             Text(  // 회원가입
                 text = stringResource(R.string.signup),
                 fontSize = 16.sp,
-                color = Gray100,
+                color = Gray3,
                 modifier = Modifier.clickable {
                     val intent = Intent(context, SignUpActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

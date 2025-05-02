@@ -20,6 +20,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
+import org.sopt.at.ui.theme.BasicBlack
+import org.sopt.at.ui.theme.BasicWhite
 
 @Composable
 fun TopAppBarComponent(
@@ -34,7 +36,7 @@ fun TopAppBarComponent(
         modifier = Modifier
             .fillMaxWidth()
             .height(64.dp)
-            .background(Color.Black),
+            .background(BasicBlack),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // 좌측 아이콘
@@ -42,7 +44,7 @@ fun TopAppBarComponent(
             Icon(
                 imageVector = ImageVector.vectorResource(leftIconId),
                 contentDescription = "TopAppBar leftIcon",
-                tint = Color.White,
+                tint = BasicWhite,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onLeftIconClicked() }
@@ -56,7 +58,7 @@ fun TopAppBarComponent(
             Icon(
                 imageVector = ImageVector.vectorResource(rightFirstIconId),
                 contentDescription = "TopAppBar rightFirstIcon",
-                tint = Color.White,
+                tint = BasicWhite,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onRightFirstIconClicked() }
@@ -70,7 +72,7 @@ fun TopAppBarComponent(
             Icon(
                 imageVector = ImageVector.vectorResource(rightSecondIconId),
                 contentDescription = "TopAppBar rightSecondIconId",
-                tint = Color.White,
+                tint = BasicWhite,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onRightSecondIconClicked() }

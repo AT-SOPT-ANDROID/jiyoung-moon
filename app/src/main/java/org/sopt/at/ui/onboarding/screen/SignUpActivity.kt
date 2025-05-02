@@ -31,7 +31,7 @@ import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.Gray100
+import org.sopt.at.ui.theme.Gray3
 import java.util.regex.Pattern
 
 class SignUpActivity : ComponentActivity() {
@@ -172,7 +172,7 @@ fun SignUpScreen(
         Text(
             text = stringResource(inputfieldRuleId),
             fontSize = 14.sp,
-            color = Gray100
+            color = Gray3
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -180,10 +180,10 @@ fun SignUpScreen(
         // '다음' btn
         ButtonComponent(
             containerColor = Color.Black,
-            contentColor = Gray100,
+            contentColor = Gray3,
             text = stringResource(R.string.next),
             onClick = onNextBtnClicked,
-            strokeColor = Gray100
+            strokeColor = Gray3
         )
 
         Spacer(modifier = Modifier.height(40.dp))

@@ -33,7 +33,7 @@ import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.onboarding.screen.SignInActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.Gray100
+import org.sopt.at.ui.theme.Gray3
 
 class MyActivity : ComponentActivity() {
     private var loggedInId: String? = null
@@ -108,10 +108,10 @@ fun MyScreen(
         // '로그아웃' btn
         ButtonComponent(
             containerColor = Color.Black,
-            contentColor = Gray100,
+            contentColor = Gray3,
             text = stringResource(R.string.logout),
             onClick = { context.startActivity(intent) },
-            strokeColor = Gray100
+            strokeColor = Gray3
         )
     }
 }
