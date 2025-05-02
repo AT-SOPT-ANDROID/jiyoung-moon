@@ -13,7 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
@@ -33,7 +34,7 @@ fun TvingTopAppBarComponent(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_tving_logo),
+            imageVector = ImageVector.vectorResource(R.drawable.ic_tving_logo),
             contentDescription = "Tving logo",
             modifier = Modifier.height(24.dp),
             tint = Color.Unspecified
@@ -44,7 +45,7 @@ fun TvingTopAppBarComponent(
         // 우측 아이콘 1
         if (rightFirstIconId != null) {
             Icon(
-                painter = painterResource(rightFirstIconId),
+                imageVector = ImageVector.vectorResource(rightFirstIconId),
                 contentDescription = "TopAppBar rightFirstIcon",
                 tint = Color.White,
                 modifier = Modifier
@@ -58,7 +59,7 @@ fun TvingTopAppBarComponent(
         // 우측 아이콘 2
         if (rightSecondIconId != null) {
             Icon(
-                painter = painterResource(rightSecondIconId),
+                imageVector = ImageVector.vectorResource(rightSecondIconId),
                 contentDescription = "TopAppBar rightSecondIconId",
                 tint = Color.Unspecified,
                 modifier = Modifier
