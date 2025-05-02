@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.ui.common.component.TopAppBarComponent
+import org.sopt.at.ui.common.component.TvingTopAppBarComponent
 import org.sopt.at.ui.home.component.contentComponent
 import org.sopt.at.ui.home.viewmodel.ContentViewModel
 
@@ -33,10 +33,10 @@ fun HomeScreen(
             .padding(20.dp)
     ) {
         // 상단바
-        TopAppBarComponent(
-            rightFirstIconId = R.drawable.ic_round_notifications_none_24,
+        TvingTopAppBarComponent(
+            rightFirstIconId = R.drawable.ic_baseline_connected_tv_24,
             onRightFirstIconClicked = { /* TODO: 아이콘 클릭 시 처리 */ },
-            rightSecondIconId = R.drawable.ic_outline_settings_24,
+            rightSecondIconId = R.drawable.img_profile,
             onRightSecondIconClicked = { /* TODO: 아이콘 클릭 시 처리 */ }
         )
 
