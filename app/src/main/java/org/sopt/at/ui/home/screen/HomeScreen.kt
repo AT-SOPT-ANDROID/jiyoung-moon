@@ -14,13 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.ui.common.component.TvingTopAppBarComponent
 import org.sopt.at.ui.home.component.contentComponent
 import org.sopt.at.ui.home.viewmodel.ContentViewModel
+import org.sopt.at.ui.theme.TvingTheme
 
 @Composable
 fun HomeScreen(
@@ -56,8 +55,7 @@ fun HomeScreen(
                 // 오늘의 티빙 top 20
                 Text(
                     text = stringResource(R.string.today_top_20_contents),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = TvingTheme.typography.subtitle_SB,
                     color = Color.White
                 )
                 contentComponent(
@@ -71,8 +69,7 @@ fun HomeScreen(
                 // 지금 방영 중인 콘텐츠
                 Text(
                     text = stringResource(R.string.now_on_contents),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = TvingTheme.typography.subtitle_SB,
                     color = Color.White
                 )
                 contentComponent(
