@@ -1,10 +1,5 @@
 package org.sopt.at.ui.home.screen
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,22 +21,6 @@ import org.sopt.at.R
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.home.component.contentComponent
 import org.sopt.at.ui.home.viewmodel.ContentViewModel
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-
-class HomeActivity : ComponentActivity() {
-    private val contentViewModel: ContentViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        enableEdgeToEdge()
-        setContent {
-            ATSOPTANDROIDTheme {
-                HomeScreen(contentViewModel)
-            }
-        }
-    }
-}
 
 @Composable
 fun HomeScreen(
