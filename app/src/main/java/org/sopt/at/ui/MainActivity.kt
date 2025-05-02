@@ -19,7 +19,7 @@ import org.sopt.at.ui.home.viewmodel.ContentViewModel
 import org.sopt.at.ui.live.screen.LiveScreen
 import org.sopt.at.ui.search.screen.SearchScreen
 import org.sopt.at.ui.shorts.screen.ShortsScreen
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+import org.sopt.at.ui.theme.TvingTheme
 
 class MainActivity : ComponentActivity() {
     private val contentViewModel: ContentViewModel by viewModels()
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
 
-            ATSOPTANDROIDTheme {
+            TvingTheme {
                 Scaffold(
                     bottomBar = { BottomNavBar(navController) }
                 ) { innerPadding ->

@@ -35,9 +35,9 @@ import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.mypage.screen.MyActivity
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.Gray3
 import org.sopt.at.ui.theme.Gray4
+import org.sopt.at.ui.theme.TvingTheme
 
 class SignInActivity : ComponentActivity() {
     private var registeredId: String? = null
@@ -52,7 +52,7 @@ class SignInActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            ATSOPTANDROIDTheme {
+            TvingTheme {
                 SignInScreen(registeredId, registeredPwd)
             }
         }

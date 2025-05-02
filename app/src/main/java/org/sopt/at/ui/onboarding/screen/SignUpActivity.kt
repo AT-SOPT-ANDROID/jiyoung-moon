@@ -30,8 +30,8 @@ import org.sopt.at.R
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.Gray3
+import org.sopt.at.ui.theme.TvingTheme
 import java.util.regex.Pattern
 
 class SignUpActivity : ComponentActivity() {
@@ -39,7 +39,7 @@ class SignUpActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ATSOPTANDROIDTheme {
+            TvingTheme {
                 var isFirstStep by remember { mutableStateOf(true) }
                 var isPwdVisible by remember { mutableStateOf(false) }
 

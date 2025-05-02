@@ -32,8 +32,8 @@ import org.sopt.at.R
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.onboarding.screen.SignInActivity
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.Gray3
+import org.sopt.at.ui.theme.TvingTheme
 
 class MyActivity : ComponentActivity() {
     private var loggedInId: String? = null
@@ -46,7 +46,7 @@ class MyActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            ATSOPTANDROIDTheme {
+            TvingTheme {
                 loggedInId?.let {
                     MyScreen(
                         profileId = it
