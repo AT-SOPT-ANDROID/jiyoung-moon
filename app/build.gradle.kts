@@ -62,4 +62,7 @@ dependencies {
 
     // AsyncImage
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.8.9")
 }
