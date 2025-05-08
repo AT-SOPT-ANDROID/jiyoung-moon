@@ -17,4 +17,13 @@
     <string name="pwd_rule">영문, 숫자, 특수문자(~!@#$%^&amp;*) 조합 8~15자리</string>
     <string name="today_top_20_contents">오늘의 티빙 TOP 20</string>
     <string name="now_on_contents">지금 방영 중인 콘텐츠</string>
+
+    <!--    contentDescription  -->
+    <string name="desc_topappbar_left_icon">TopAppBar leftIcon</string>
+    <string name="desc_topappbar_right_first_icon">TopAppBar rightFirstIcon</string>
+    <string name="desc_topappbar_right_second_icon">TopAppBar rightSecondIcon</string>
+    <string name="desc_tving_logo">Tving logo</string>
+    <string name="desc_content_image">content image</string>
+    <string name="desc_profile_image">프로필 이미지</string>
+    <string name="desc_eye_icon">눈 아이콘</string>
 </resources>

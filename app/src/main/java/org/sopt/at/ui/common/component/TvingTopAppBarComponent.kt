@@ -13,10 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 @Composable
 fun TvingTopAppBarComponent(
@@ -29,14 +33,14 @@ fun TvingTopAppBarComponent(
         modifier = Modifier
             .fillMaxWidth()
             .height(64.dp)
-            .background(Color.Black),
+            .background(colors.BasicBlack),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_tving_logo),
-            contentDescription = "Tving logo",
+            imageVector = ImageVector.vectorResource(R.drawable.ic_tving_logo),
+            contentDescription = stringResource(R.string.desc_tving_logo),
             modifier = Modifier.height(24.dp),
-            tint = Color.Unspecified
+            tint = colors.BrandRed
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -44,9 +48,9 @@ fun TvingTopAppBarComponent(
         // 우측 아이콘 1
         if (rightFirstIconId != null) {
             Icon(
-                painter = painterResource(rightFirstIconId),
-                contentDescription = "TopAppBar rightFirstIcon",
-                tint = Color.White,
+                imageVector = ImageVector.vectorResource(rightFirstIconId),
+                contentDescription = stringResource(R.string.desc_topappbar_right_first_icon),
+                tint = colors.BasicWhite,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onRightFirstIconClicked() }
@@ -59,7 +63,7 @@ fun TvingTopAppBarComponent(
         if (rightSecondIconId != null) {
             Icon(
                 painter = painterResource(rightSecondIconId),
-                contentDescription = "TopAppBar rightSecondIconId",
+                contentDescription = stringResource(R.string.desc_topappbar_right_second_icon),
                 tint = Color.Unspecified,
                 modifier = Modifier
                     .size(24.dp)

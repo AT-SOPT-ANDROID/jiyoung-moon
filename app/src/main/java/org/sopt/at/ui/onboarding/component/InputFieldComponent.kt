@@ -24,9 +24,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -34,8 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.Gray100
-import org.sopt.at.ui.theme.Gray300
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 @Composable
 fun InputFieldComponent(
@@ -53,9 +52,9 @@ fun InputFieldComponent(
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
-            .background(color = Gray300, shape = RoundedCornerShape(6.dp))
+            .background(color = colors.Gray5, shape = RoundedCornerShape(6.dp))
             .padding(10.dp),
-        textStyle = TextStyle.Default.copy(fontSize = 16.sp, color = Color.White),
+        textStyle = TextStyle.Default.copy(fontSize = 16.sp, color = colors.BasicWhite),
         visualTransformation = if (isPwdField && !isPwdVisible) PasswordVisualTransformation() else VisualTransformation.None,
         singleLine = true,
         decorationBox = { innerTextField ->
@@ -69,7 +68,7 @@ fun InputFieldComponent(
                         Text(
                             text = placeholder,
                             fontSize = 16.sp,
-                            color = Gray100,
+                            color = colors.Gray3,
                         )
                     }
                     innerTextField()
@@ -85,11 +84,11 @@ fun InputFieldComponent(
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Icon(
-                            painter = if (isPwdVisible) painterResource(R.drawable.ic_eye_off) else painterResource(
+                            imageVector = if (isPwdVisible) ImageVector.vectorResource(R.drawable.ic_eye_off) else ImageVector.vectorResource(
                                 R.drawable.ic_eye_on
                             ),
-                            contentDescription = "눈 아이콘",
-                            tint = Gray100,
+                            contentDescription = stringResource(R.string.desc_eye_icon),
+                            tint = colors.Gray3,
                             modifier = Modifier.fillMaxHeight()
                         )
                     }

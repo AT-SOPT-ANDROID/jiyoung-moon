@@ -20,8 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.Gray100
-import org.sopt.at.ui.theme.Gray200
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 @Composable
 fun ButtonComponent(
@@ -61,13 +60,13 @@ fun ButtonComponentPreview() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(colors.BasicBlack)
             .padding(20.dp)
     ) {
         // 테두리가 없는 경우
         ButtonComponent(
-            containerColor = Gray200,
-            contentColor = Gray100,
+            containerColor = colors.Gray4,
+            contentColor = colors.Gray3,
             text = stringResource(R.string.login_action),
             onClick = { /* TODO: 버튼 클릭 시 처리 */ }
         )
@@ -76,11 +75,11 @@ fun ButtonComponentPreview() {
 
         // 테두리가 있는 경우
         ButtonComponent(
-            containerColor = Color.Black,
-            contentColor = Gray100,
+            containerColor = colors.BasicBlack,
+            contentColor = colors.Gray3,
             text = stringResource(R.string.next),
             onClick = { /* TODO: 버튼 클릭 시 처리 */ },
-            strokeColor = Gray100
+            strokeColor = colors.Gray3
         )
     }
 }

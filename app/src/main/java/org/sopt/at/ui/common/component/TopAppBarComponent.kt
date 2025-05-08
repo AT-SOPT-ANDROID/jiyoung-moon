@@ -14,11 +14,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 @Composable
 fun TopAppBarComponent(
@@ -33,15 +35,15 @@ fun TopAppBarComponent(
         modifier = Modifier
             .fillMaxWidth()
             .height(64.dp)
-            .background(Color.Black),
+            .background(colors.BasicBlack),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // 좌측 아이콘
         if (leftIconId != null) {
             Icon(
-                painter = painterResource(leftIconId),
-                contentDescription = "TopAppBar leftIcon",
-                tint = Color.White,
+                imageVector = ImageVector.vectorResource(leftIconId),
+                contentDescription = stringResource(R.string.desc_topappbar_left_icon),
+                tint = colors.BasicWhite,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onLeftIconClicked() }
@@ -53,9 +55,9 @@ fun TopAppBarComponent(
         // 우측 아이콘 1
         if (rightFirstIconId != null) {
             Icon(
-                painter = painterResource(rightFirstIconId),
-                contentDescription = "TopAppBar rightFirstIcon",
-                tint = Color.White,
+                imageVector = ImageVector.vectorResource(rightFirstIconId),
+                contentDescription = stringResource(R.string.desc_topappbar_right_first_icon),
+                tint = colors.BasicWhite,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onRightFirstIconClicked() }
@@ -67,9 +69,9 @@ fun TopAppBarComponent(
         // 우측 아이콘 2
         if (rightSecondIconId != null) {
             Icon(
-                painter = painterResource(rightSecondIconId),
-                contentDescription = "TopAppBar rightSecondIconId",
-                tint = Color.White,
+                imageVector = ImageVector.vectorResource(rightSecondIconId),
+                contentDescription = stringResource(R.string.desc_topappbar_right_second_icon),
+                tint = colors.BasicWhite,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onRightSecondIconClicked() }

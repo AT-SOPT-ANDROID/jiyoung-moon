@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,9 +35,8 @@ import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.mypage.screen.MyActivity
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.Gray100
-import org.sopt.at.ui.theme.Gray200
+import org.sopt.at.ui.theme.TvingTheme
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 class SignInActivity : ComponentActivity() {
     private var registeredId: String? = null
@@ -52,7 +51,7 @@ class SignInActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            ATSOPTANDROIDTheme {
+            TvingTheme {
                 SignInScreen(registeredId, registeredPwd)
             }
         }
@@ -73,7 +72,7 @@ fun SignInScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(colors.BasicBlack)
             .padding(20.dp)
     ) {
         // 상단바
@@ -91,7 +90,7 @@ fun SignInScreen(
                     + stringResource(R.string.login),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = colors.BasicWhite
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -119,8 +118,8 @@ fun SignInScreen(
 
         // '로그인하기' btn
         ButtonComponent(
-            containerColor = Gray200,
-            contentColor = Gray100,
+            containerColor = colors.Gray4,
+            contentColor = colors.Gray3,
             text = stringResource(R.string.login_action),
             onClick = {
                 if (idInputText == registeredId && pwdInputText == registeredPwd) {
@@ -147,29 +146,33 @@ fun SignInScreen(
             Text(  // 아이디 찾기
                 text = stringResource(R.string.id_kor) + " " + stringResource(R.string.find),
                 fontSize = 16.sp,
-                color = Gray100,
+                color = colors.Gray3,
                 modifier = Modifier.clickable { /* TODO: 텍스트 클릭 시 처리 */ }
             )
-            Text(
-                text = "  |  ",
-                fontSize = 16.sp,
-                color = Gray100
+            VerticalDivider(
+                modifier = Modifier
+                    .height(16.dp)
+                    .padding(horizontal = 8.dp),
+                thickness = 1.dp,
+                color = colors.Gray3
             )
             Text(  // 비밀번호 찾기
                 text = stringResource(R.string.pwd_kor) + " " + stringResource(R.string.find),
                 fontSize = 16.sp,
-                color = Gray100,
+                color = colors.Gray3,
                 modifier = Modifier.clickable { /* TODO: 텍스트 클릭 시 처리 */ }
             )
-            Text(
-                text = "  |  ",
-                fontSize = 16.sp,
-                color = Gray100
+            VerticalDivider(
+                modifier = Modifier
+                    .height(16.dp)
+                    .padding(horizontal = 8.dp),
+                thickness = 1.dp,
+                color = colors.Gray3
             )
             Text(  // 회원가입
                 text = stringResource(R.string.signup),
                 fontSize = 16.sp,
-                color = Gray100,
+                color = colors.Gray3,
                 modifier = Modifier.clickable {
                     val intent = Intent(context, SignUpActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

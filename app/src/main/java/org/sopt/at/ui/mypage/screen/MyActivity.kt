@@ -20,9 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,8 +32,8 @@ import org.sopt.at.R
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.onboarding.screen.SignInActivity
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.Gray100
+import org.sopt.at.ui.theme.TvingTheme
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 class MyActivity : ComponentActivity() {
     private var loggedInId: String? = null
@@ -45,7 +46,7 @@ class MyActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            ATSOPTANDROIDTheme {
+            TvingTheme {
                 loggedInId?.let {
                     MyScreen(
                         profileId = it
@@ -88,8 +89,8 @@ fun MyScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(R.drawable.img_profile),
-                contentDescription = "프로필 이미지",
+                imageVector = ImageVector.vectorResource(R.drawable.img_profile),
+                contentDescription = stringResource(R.string.desc_profile_image),
                 modifier = Modifier
                     .size(60.dp)
             )
@@ -98,7 +99,7 @@ fun MyScreen(
                 text = profileId,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White
+                color = colors.BasicWhite
             )
         }
 
@@ -106,11 +107,11 @@ fun MyScreen(
 
         // '로그아웃' btn
         ButtonComponent(
-            containerColor = Color.Black,
-            contentColor = Gray100,
+            containerColor = colors.BasicBlack,
+            contentColor = colors.Gray3,
             text = stringResource(R.string.logout),
             onClick = { context.startActivity(intent) },
-            strokeColor = Gray100
+            strokeColor = colors.Gray3
         )
     }
 }

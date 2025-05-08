@@ -3,20 +3,20 @@ package org.sopt.at.ui.home.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import org.sopt.at.R
 import org.sopt.at.ui.home.viewmodel.Content
-import org.sopt.at.ui.home.viewmodel.ContentViewModel
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 @Composable
 fun contentComponent(
@@ -50,14 +50,14 @@ fun contentItemComponent(
                 text = content.ranking.toString(),
                 fontSize = 80.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White
+                color = colors.BasicWhite
             )
         }
         AsyncImage(
             model = content.imgUrl,
             modifier = modifier,
             contentScale = ContentScale.Crop,
-            contentDescription = "content image"
+            contentDescription = stringResource(R.string.desc_content_image)
         )
     }
 }
