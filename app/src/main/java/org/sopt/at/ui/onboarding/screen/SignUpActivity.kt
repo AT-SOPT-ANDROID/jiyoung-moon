@@ -20,7 +20,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -30,8 +29,8 @@ import org.sopt.at.R
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
-import org.sopt.at.ui.theme.Gray3
 import org.sopt.at.ui.theme.TvingTheme
+import org.sopt.at.ui.theme.TvingTheme.colors
 import java.util.regex.Pattern
 
 class SignUpActivity : ComponentActivity() {
@@ -132,7 +131,7 @@ fun SignUpScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(colors.BasicBlack)
             .padding(20.dp)
     ) {
         // 상단바
@@ -148,7 +147,7 @@ fun SignUpScreen(
             text = stringResource(enterGuideId),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = colors.BasicWhite,
             modifier = Modifier
                 .fillMaxWidth(),
             textAlign = TextAlign.Center
@@ -172,18 +171,18 @@ fun SignUpScreen(
         Text(
             text = stringResource(inputfieldRuleId),
             fontSize = 14.sp,
-            color = Gray3
+            color = colors.Gray3
         )
 
         Spacer(modifier = Modifier.weight(1f))
 
         // '다음' btn
         ButtonComponent(
-            containerColor = Color.Black,
-            contentColor = Gray3,
+            containerColor = colors.BasicBlack,
+            contentColor = colors.Gray3,
             text = stringResource(R.string.next),
             onClick = onNextBtnClicked,
-            strokeColor = Gray3
+            strokeColor = colors.Gray3
         )
 
         Spacer(modifier = Modifier.height(40.dp))

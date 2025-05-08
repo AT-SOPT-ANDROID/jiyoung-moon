@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -35,8 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.Gray3
-import org.sopt.at.ui.theme.Gray5
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 @Composable
 fun InputFieldComponent(
@@ -54,9 +52,9 @@ fun InputFieldComponent(
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
-            .background(color = Gray5, shape = RoundedCornerShape(6.dp))
+            .background(color = colors.Gray5, shape = RoundedCornerShape(6.dp))
             .padding(10.dp),
-        textStyle = TextStyle.Default.copy(fontSize = 16.sp, color = Color.White),
+        textStyle = TextStyle.Default.copy(fontSize = 16.sp, color = colors.BasicWhite),
         visualTransformation = if (isPwdField && !isPwdVisible) PasswordVisualTransformation() else VisualTransformation.None,
         singleLine = true,
         decorationBox = { innerTextField ->
@@ -70,7 +68,7 @@ fun InputFieldComponent(
                         Text(
                             text = placeholder,
                             fontSize = 16.sp,
-                            color = Gray3,
+                            color = colors.Gray3,
                         )
                     }
                     innerTextField()
@@ -90,7 +88,7 @@ fun InputFieldComponent(
                                 R.drawable.ic_eye_on
                             ),
                             contentDescription = stringResource(R.string.desc_eye_icon),
-                            tint = Gray3,
+                            tint = colors.Gray3,
                             modifier = Modifier.fillMaxHeight()
                         )
                     }

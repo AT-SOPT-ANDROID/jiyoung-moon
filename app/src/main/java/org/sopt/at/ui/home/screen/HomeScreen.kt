@@ -19,7 +19,8 @@ import org.sopt.at.R
 import org.sopt.at.ui.common.component.TvingTopAppBarComponent
 import org.sopt.at.ui.home.component.contentComponent
 import org.sopt.at.ui.home.viewmodel.ContentViewModel
-import org.sopt.at.ui.theme.TvingTheme
+import org.sopt.at.ui.theme.TvingTheme.colors
+import org.sopt.at.ui.theme.TvingTheme.typography
 
 @Composable
 fun HomeScreen(
@@ -55,8 +56,8 @@ fun HomeScreen(
                 // 오늘의 티빙 top 20
                 Text(
                     text = stringResource(R.string.today_top_20_contents),
-                    style = TvingTheme.typography.subtitle_SB,
-                    color = Color.White
+                    style = typography.subtitle_SB,
+                    color = colors.BasicWhite
                 )
                 contentComponent(
                     modifier = Modifier
@@ -69,8 +70,8 @@ fun HomeScreen(
                 // 지금 방영 중인 콘텐츠
                 Text(
                     text = stringResource(R.string.now_on_contents),
-                    style = TvingTheme.typography.subtitle_SB,
-                    color = Color.White
+                    style = typography.subtitle_SB,
+                    color = colors.BasicWhite
                 )
                 contentComponent(
                     modifier = Modifier

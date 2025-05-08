@@ -32,8 +32,8 @@ import org.sopt.at.R
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.onboarding.screen.SignInActivity
-import org.sopt.at.ui.theme.Gray3
 import org.sopt.at.ui.theme.TvingTheme
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 class MyActivity : ComponentActivity() {
     private var loggedInId: String? = null
@@ -99,7 +99,7 @@ fun MyScreen(
                 text = profileId,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White
+                color = colors.BasicWhite
             )
         }
 
@@ -107,11 +107,11 @@ fun MyScreen(
 
         // '로그아웃' btn
         ButtonComponent(
-            containerColor = Color.Black,
-            contentColor = Gray3,
+            containerColor = colors.BasicBlack,
+            contentColor = colors.Gray3,
             text = stringResource(R.string.logout),
             onClick = { context.startActivity(intent) },
-            strokeColor = Gray3
+            strokeColor = colors.Gray3
         )
     }
 }

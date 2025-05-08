@@ -20,9 +20,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.BasicBlack
-import org.sopt.at.ui.theme.BasicWhite
-import org.sopt.at.ui.theme.BrandRed
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 @Composable
 fun TvingTopAppBarComponent(
@@ -35,14 +33,14 @@ fun TvingTopAppBarComponent(
         modifier = Modifier
             .fillMaxWidth()
             .height(64.dp)
-            .background(BasicBlack),
+            .background(colors.BasicBlack),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_tving_logo),
             contentDescription = stringResource(R.string.desc_tving_logo),
             modifier = Modifier.height(24.dp),
-            tint = BrandRed
+            tint = colors.BrandRed
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -52,7 +50,7 @@ fun TvingTopAppBarComponent(
             Icon(
                 imageVector = ImageVector.vectorResource(rightFirstIconId),
                 contentDescription = stringResource(R.string.desc_topappbar_right_first_icon),
-                tint = BasicWhite,
+                tint = colors.BasicWhite,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onRightFirstIconClicked() }

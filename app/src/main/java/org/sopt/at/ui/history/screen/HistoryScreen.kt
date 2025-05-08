@@ -7,21 +7,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.sopt.at.ui.theme.BasicBlack
-import org.sopt.at.ui.theme.TvingTheme
+import org.sopt.at.ui.theme.TvingTheme.colors
+import org.sopt.at.ui.theme.TvingTheme.typography
 
 @Composable
 fun HistoryScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(BasicBlack),
+            .background(colors.BasicBlack),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = "History screen",
-            style = TvingTheme.typography.body_R,
-            color = TvingTheme.colors.BasicWhite
+            style = typography.body_R,
+            color = colors.BasicWhite
         )
     }
 }

@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import org.sopt.at.ui.theme.TvingTheme.colors
 
 @Composable
 fun BottomNavBar(navController: NavController) {
@@ -32,7 +32,7 @@ fun BottomNavBar(navController: NavController) {
     val currentRoute = backStackEntry?.destination?.route  // 현재 위치해있는 route
 
     Surface(
-        color = Color.Black,
+        color = colors.BasicBlack,
         modifier = Modifier.navigationBarsPadding()
     ) {
         Row(
@@ -58,12 +58,12 @@ fun BottomNavBar(navController: NavController) {
                         modifier = Modifier.size(30.dp),
                         imageVector = ImageVector.vectorResource(id = item.imageId),
                         contentDescription = item.title,
-                        tint = if (selected) Color.White else Color.Gray
+                        tint = if (selected) colors.BasicWhite else colors.Gray1
                     )
                     Text(
                         text = item.title,
                         fontSize = 12.sp,
-                        color = if (selected) Color.White else Color.Gray
+                        color = if (selected) colors.BasicWhite else colors.Gray1
                     )
                 }
             }
