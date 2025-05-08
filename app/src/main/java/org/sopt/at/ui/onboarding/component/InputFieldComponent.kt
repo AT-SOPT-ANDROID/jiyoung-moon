@@ -89,7 +89,7 @@ fun InputFieldComponent(
                             imageVector = if (isPwdVisible) ImageVector.vectorResource(R.drawable.ic_eye_off) else ImageVector.vectorResource(
                                 R.drawable.ic_eye_on
                             ),
-                            contentDescription = "눈 아이콘",
+                            contentDescription = stringResource(R.string.desc_eye_icon),
                             tint = Gray3,
                             modifier = Modifier.fillMaxHeight()
                         )

@@ -90,7 +90,7 @@ fun MyScreen(
         ) {
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.img_profile),
-                contentDescription = "프로필 이미지",
+                contentDescription = stringResource(R.string.desc_profile_image),
                 modifier = Modifier
                     .size(60.dp)
             )
