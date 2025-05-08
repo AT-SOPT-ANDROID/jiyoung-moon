@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.ui.theme.BasicBlack
-import org.sopt.at.ui.theme.BasicWhite
 import org.sopt.at.ui.theme.Gray3
 import org.sopt.at.ui.theme.Gray4
 

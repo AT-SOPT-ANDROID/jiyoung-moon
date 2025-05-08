@@ -22,7 +22,6 @@ import org.sopt.at.R
 import org.sopt.at.ui.theme.BasicBlack
 import org.sopt.at.ui.theme.BasicWhite
 import org.sopt.at.ui.theme.BrandRed
-import org.sopt.at.ui.theme.Gray3
 
 @Composable
 fun TvingTopAppBarComponent(

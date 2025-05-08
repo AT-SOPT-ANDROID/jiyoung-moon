@@ -3,7 +3,6 @@ package org.sopt.at.ui.home.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import org.sopt.at.ui.home.viewmodel.Content
-import org.sopt.at.ui.home.viewmodel.ContentViewModel
 
 @Composable
 fun contentComponent(
