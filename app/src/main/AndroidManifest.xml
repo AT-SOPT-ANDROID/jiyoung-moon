@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ATSOPTANDROID"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.onboarding.screen.SignInActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
             android:name=".ui.mypage.screen.MyActivity"
@@ -24,7 +25,7 @@
             android:name=".ui.onboarding.screen.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.onboarding.screen.SignInActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ATSOPTANDROID">
