@@ -5,16 +5,20 @@
     <string name="id_eng">ID</string>
     <string name="id_kor">아이디</string>
     <string name="pwd_kor">비밀번호</string>
+    <string name="nickname_kor">닉네임</string>
     <string name="login">로그인</string>
     <string name="login_action">로그인하기</string>
     <string name="logout">로그아웃</string>
     <string name="next">다음</string>
     <string name="find">찾기</string>
     <string name="signup">회원가입</string>
+    <string name="signup_action">회원가입하</string>
     <string name="id_enter_guide">아이디를 입력해주세요.</string>
-    <string name="id_rule">영문 소문자 또는 영문 소문자, 숫자 조합 6~12 자리</string>
+    <string name="id_rule">영문 대문자, 영문 소문자, 숫자만 사용 가능 (8~20자)</string>
     <string name="pwd_enter_guide">비밀번호를 입력해주세요.</string>
-    <string name="pwd_rule">영문, 숫자, 특수문자(~!@#$%^&amp;*) 조합 8~15자리</string>
+    <string name="pwd_rule">영문 대문자, 영문 소문자, 숫자만 사용 가능 (8~20자)</string>
+    <string name="nickname_enter_guide">닉네임을 입력해주세요.</string>
+    <string name="nickname_rule">한글, 영문, 숫자만 사용 가능 (1~20자)</string>
     <string name="today_top_20_contents">오늘의 티빙 TOP 20</string>
     <string name="now_on_contents">지금 방영 중인 콘텐츠</string>
 

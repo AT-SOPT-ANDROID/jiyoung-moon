@@ -28,9 +28,13 @@ import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
+import org.sopt.at.ui.common.networking.RequestSignUpDto
+import org.sopt.at.ui.common.networking.ResponseSignUpDto
+import org.sopt.at.ui.common.networking.ServicePool
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
 import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.ui.theme.TvingTheme.colors
+import retrofit2.Callback
 import java.util.regex.Pattern
 
 class SignUpActivity : ComponentActivity() {
@@ -39,28 +43,36 @@ class SignUpActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TvingTheme {
-                var isFirstStep by remember { mutableStateOf(true) }
+                var currentStep by remember { mutableStateOf(0) }   // 0: ID, 1: PWD, 2: Nickname
                 var isPwdVisible by remember { mutableStateOf(false) }
 
                 var idInputText by remember { mutableStateOf("") }
                 var pwdInputText by remember { mutableStateOf("") }
+                var nicknameInputText by remember { mutableStateOf("") }
+
+                var errorMessage by remember { mutableStateOf(null) }
 
                 // id 유효성 검사하는 함수
-                fun isValidId(input: String): Boolean {
-                    val regex = "^[a-z0-9]{6,12}$".toRegex()
-                    return input.matches(regex)
+                fun isValidId(id: String): Boolean {
+                    val regex = "^[A-Za-z0-9]{8,20}$"
+                    return Pattern.matches(regex, id)
                 }
 
                 // pwd 유효성 검사하는 함수
-                fun isValidPwd(input: String): Boolean {
-                    val regex =
-                        Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[~!@#\$%^&*])[A-Za-z\\d~!@#\$%^&*]{8,15}")
-                    return regex.matcher(input).matches()
+                fun isValidPwd(pwd: String): Boolean {
+                    val regex = "^[A-Za-z0-9]{8,20}$"
+                    return Pattern.matches(regex, pwd)
                 }
 
-                if (isFirstStep) {
+                // 닉네임 유효성 검사하는 함수
+                fun isValidNickname(nickname: String): Boolean {
+                    val regex = "^[가-힣a-zA-Z0-9]{1,20}$"
+                    return Pattern.matches(regex, nickname)
+                }
+
+                when (currentStep) {
                     // '아이디를 입력해주세요.' 화면
-                    SignUpScreen(
+                    0 -> SignUpScreen(
                         onLeftIconClicked = { /* TODO: 아이콘 클릭 시 처리 */ },
                         enterGuideId = R.string.id_enter_guide,
                         inputfieldPlaceholderId = R.string.id_kor,
@@ -69,19 +81,23 @@ class SignUpActivity : ComponentActivity() {
                         inputfieldRuleId = R.string.id_rule,
                         onNextBtnClicked = {
                             if (isValidId(idInputText)) {
-                                isFirstStep = false
+                                currentStep = 1
                             } else {
-                                Toast.makeText(this, "아이디 형식을 다시 확인해주세요.", Toast.LENGTH_SHORT)
-                                    .show()
+                                if (idInputText.isNotBlank()) {
+                                    Toast.makeText(this, "아이디 형식을 다시 확인해주세요.", Toast.LENGTH_SHORT)
+                                        .show()
+                                } else {
+                                    Toast.makeText(this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
                             }
                         }
                     )
-                }
-                if (!isFirstStep) {
+
                     // '비밀번호를 입력해주세요.' 화면
-                    SignUpScreen(
+                    1 -> SignUpScreen(
                         onLeftIconClicked = {
-                            isFirstStep = true
+                            currentStep = 0
                         },
                         enterGuideId = R.string.pwd_enter_guide,
                         inputfieldPlaceholderId = R.string.pwd_kor,
@@ -93,20 +109,89 @@ class SignUpActivity : ComponentActivity() {
                         onPwdVisibleToggle = { isPwdVisible = !isPwdVisible },
                         onNextBtnClicked = {
                             if (isValidPwd(pwdInputText)) {
-                                Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT)
-                                    .show()
-                                val intent =
-                                    Intent(this@SignUpActivity, SignInActivity::class.java).apply {
-                                        putExtra("id", idInputText)
-                                        putExtra("pwd", pwdInputText)
-                                    }
-                                startActivity(intent)
-                                finish()
+                                currentStep = 2
                             } else {
-                                Toast.makeText(this, "비밀번호 형식을 다시 확인해주세요.", Toast.LENGTH_SHORT)
-                                    .show()
+                                if (pwdInputText.isNotBlank()) {
+                                    Toast.makeText(this, "비밀번호 형식을 다시 확인해주세요.", Toast.LENGTH_SHORT)
+                                        .show()
+                                } else {
+                                    Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
                             }
                         }
+                    )
+
+                    // '닉네임을 입력해주세요.' 화면
+                    2 -> SignUpScreen(
+                        onLeftIconClicked = {
+                            currentStep = 1
+                        },
+                        enterGuideId = R.string.nickname_enter_guide,
+                        inputfieldPlaceholderId = R.string.nickname_kor,
+                        inputText = nicknameInputText,
+                        onTextChanged = { nicknameInputText = it },
+                        inputfieldRuleId = R.string.nickname_rule,
+                        onNextBtnClicked = {
+                            if (isValidNickname(nicknameInputText)) {
+                                val request = RequestSignUpDto(
+                                    loginId = idInputText,
+                                    password = pwdInputText,
+                                    nickname = nicknameInputText
+                                )
+
+                                ServicePool.userService.postSignUp(request)
+                                    .enqueue(object : Callback<ResponseSignUpDto> {
+                                        override fun onResponse(
+                                            call: retrofit2.Call<ResponseSignUpDto>,
+                                            response: retrofit2.Response<ResponseSignUpDto>
+                                        ) {
+                                            if (response.isSuccessful && response.body()?.success == true) {
+                                                Toast.makeText(
+                                                    this@SignUpActivity,
+                                                    "회원가입이 완료되었습니다.",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                startActivity(
+                                                    Intent(
+                                                        this@SignUpActivity,
+                                                        SignInActivity::class.java
+                                                    )
+                                                )
+                                                finish()
+                                            } else {
+                                                val message =
+                                                    response.body()?.message ?: "회원가입에 실패했습니다."
+                                                Toast.makeText(
+                                                    this@SignUpActivity,
+                                                    message,
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+
+                                        override fun onFailure(
+                                            call: retrofit2.Call<ResponseSignUpDto>,
+                                            t: Throwable
+                                        ) {
+                                            Toast.makeText(
+                                                this@SignUpActivity,
+                                                "네트워크 오류: ${t.message}",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    })
+
+                            } else {
+                                if (nicknameInputText.isNotBlank()) {
+                                    Toast.makeText(this, "닉네임 형식을 다시 확인해주세요.", Toast.LENGTH_SHORT)
+                                        .show()
+                                } else {
+                                    Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            }
+                        },
                     )
                 }
             }
