@@ -31,38 +31,34 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
+import org.sopt.at.ui.MainActivity
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
-import org.sopt.at.ui.mypage.screen.MyActivity
+import org.sopt.at.ui.common.networking.RequestSignInDto
+import org.sopt.at.ui.common.networking.ResponseSignInDto
+import org.sopt.at.ui.common.networking.ServicePool
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
 import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.ui.theme.TvingTheme.colors
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignInActivity : ComponentActivity() {
-    private var registeredId: String? = null
-    private var registeredPwd: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // 회원가입에서 넘어온 정보 받기
-        registeredId = intent.getStringExtra("id")
-        registeredPwd = intent.getStringExtra("pwd")
 
         enableEdgeToEdge()
         setContent {
             TvingTheme {
-                SignInScreen(registeredId, registeredPwd)
+                SignInScreen()
             }
         }
     }
 }
 
 @Composable
-fun SignInScreen(
-    registeredId: String?,
-    registeredPwd: String?
-) {
+fun SignInScreen() {
     var idInputText by remember { mutableStateOf("") }
     var pwdInputText by remember { mutableStateOf("") }
     var isPwdVisible by remember { mutableStateOf(false) }
@@ -122,17 +118,34 @@ fun SignInScreen(
             contentColor = colors.Gray3,
             text = stringResource(R.string.login_action),
             onClick = {
-                if (idInputText == registeredId && pwdInputText == registeredPwd) {
-                    // 로그인 성공 → MyActivity로 이동
-                    val intent = Intent(context, MyActivity::class.java).apply {
-                        putExtra("id", idInputText)
-                        putExtra("pwd", pwdInputText)
-                    }
-                    context.startActivity(intent)
-                } else {
-                    // 로그인 실패 → Toast 띄우기
-                    Toast.makeText(context, "아이디 또는 비밀번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show()
-                }
+                val request = RequestSignInDto(
+                    loginId = idInputText,
+                    password = pwdInputText
+                )
+
+                ServicePool.userService.postSignIn(request)
+                    .enqueue(object : Callback<ResponseSignInDto> {
+                        override fun onResponse(
+                            call: Call<ResponseSignInDto>,
+                            response: Response<ResponseSignInDto>
+                        ) {
+                            if (response.isSuccessful && response.body()?.success == true) {
+                                Toast.makeText(context, "로그인이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                                context.startActivity(Intent(context, MainActivity::class.java))
+                            } else {
+                                val message = response.body()?.message ?: "로그인에 실패했습니다."
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ResponseSignInDto>, t: Throwable) {
+                            Toast.makeText(
+                                context,
+                                "네트워크 오류: ${t.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
             }
         )
 
