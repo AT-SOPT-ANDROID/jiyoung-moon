@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.sopt.at.R
 import org.sopt.at.ui.common.component.TvingTopAppBarComponent
+import org.sopt.at.ui.common.navigation.NavRoutes
 import org.sopt.at.ui.home.component.contentComponent
 import org.sopt.at.ui.home.viewmodel.ContentViewModel
 import org.sopt.at.ui.theme.TvingTheme.colors
@@ -24,7 +26,8 @@ import org.sopt.at.ui.theme.TvingTheme.typography
 
 @Composable
 fun HomeScreen(
-    viewModel: ContentViewModel
+    viewModel: ContentViewModel,
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -37,7 +40,7 @@ fun HomeScreen(
             rightFirstIconId = R.drawable.ic_baseline_connected_tv_24,
             onRightFirstIconClicked = { /* TODO: 아이콘 클릭 시 처리 */ },
             rightSecondIconId = R.drawable.img_profile,
-            onRightSecondIconClicked = { /* TODO: 아이콘 클릭 시 처리 */ }
+            onRightSecondIconClicked = { navController.navigate(NavRoutes.Mypage.route) }
         )
 
         // 상단바 제외한 부분 상하 스크롤 되도록

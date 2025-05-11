@@ -67,7 +67,10 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(NavRoutes.Home.route) {
-                            HomeScreen(contentViewModel)
+                            HomeScreen(
+                                viewModel = contentViewModel,
+                                navController = navController
+                            )
                         }
                         composable(NavRoutes.Shorts.route) {
                             ShortsScreen()

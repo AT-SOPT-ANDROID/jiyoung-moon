@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,7 +27,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import kotlinx.coroutines.launch
 import org.sopt.at.R
+import org.sopt.at.ui.common.UserDataStore
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
 import org.sopt.at.ui.common.navigation.NavRoutes
@@ -46,6 +49,7 @@ fun SignInScreen(navController: NavController) {
     var isPwdVisible by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -113,6 +117,10 @@ fun SignInScreen(navController: NavController) {
                         ) {
                             if (response.isSuccessful && response.body()?.success == true) {
                                 Toast.makeText(context, "로그인이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                                val userId = response.body()!!.data.userId
+                                coroutineScope.launch {
+                                    UserDataStore.saveUserId(context, userId)
+                                }
                                 navController.navigate(NavRoutes.Home.route)    // home 화면으로 이동
                             } else {
                                 val message = response.body()?.message ?: "로그인에 실패했습니다."

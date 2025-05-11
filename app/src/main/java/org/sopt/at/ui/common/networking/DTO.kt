@@ -43,3 +43,17 @@ data class ResponseSignInDto(
     val message: String,
     val data: SignInUserDataDto
 )
+
+// 내 닉네임 조회
+@Serializable
+data class ResponseMyNicknameDataDto(
+    val nickname: String
+)
+
+@Serializable
+data class ResponseMyNicknameDto(
+    val success: Boolean,
+    val code: String,
+    val message: String,
+    val data: ResponseMyNicknameDataDto
+)

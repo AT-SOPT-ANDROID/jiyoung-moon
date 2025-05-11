@@ -82,4 +82,7 @@ dependencies {
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.okhttp.logging)
+
+    // preferencesDataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
