@@ -1,11 +1,6 @@
 package org.sopt.at.ui.onboarding.screen
 
-import android.content.Intent
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,35 +25,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import org.sopt.at.R
-import org.sopt.at.ui.MainActivity
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
+import org.sopt.at.ui.common.navigation.NavRoutes
 import org.sopt.at.ui.common.networking.RequestSignInDto
 import org.sopt.at.ui.common.networking.ResponseSignInDto
 import org.sopt.at.ui.common.networking.ServicePool
 import org.sopt.at.ui.onboarding.component.InputFieldComponent
-import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.ui.theme.TvingTheme.colors
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignInActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        enableEdgeToEdge()
-        setContent {
-            TvingTheme {
-                SignInScreen()
-            }
-        }
-    }
-}
-
 @Composable
-fun SignInScreen() {
+fun SignInScreen(navController: NavController) {
     var idInputText by remember { mutableStateOf("") }
     var pwdInputText by remember { mutableStateOf("") }
     var isPwdVisible by remember { mutableStateOf(false) }
@@ -131,7 +113,7 @@ fun SignInScreen() {
                         ) {
                             if (response.isSuccessful && response.body()?.success == true) {
                                 Toast.makeText(context, "로그인이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                                context.startActivity(Intent(context, MainActivity::class.java))
+                                navController.navigate(NavRoutes.Home.route)    // home 화면으로 이동
                             } else {
                                 val message = response.body()?.message ?: "로그인에 실패했습니다."
                                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -187,10 +169,7 @@ fun SignInScreen() {
                 fontSize = 16.sp,
                 color = colors.Gray3,
                 modifier = Modifier.clickable {
-                    val intent = Intent(context, SignUpActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    }
-                    context.startActivity(intent)
+                    navController.navigate(NavRoutes.SignUp.route)    // signup 화면으로 이동
                 }
             )
         }
