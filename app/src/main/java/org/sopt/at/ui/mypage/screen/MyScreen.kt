@@ -1,10 +1,6 @@
 package org.sopt.at.ui.mypage.screen
 
-import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -17,53 +13,59 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import org.sopt.at.R
+import org.sopt.at.ui.common.UserDataStore
 import org.sopt.at.ui.common.component.ButtonComponent
 import org.sopt.at.ui.common.component.TopAppBarComponent
-import org.sopt.at.ui.onboarding.screen.SignInActivity
-import org.sopt.at.ui.theme.TvingTheme
+import org.sopt.at.ui.common.networking.ResponseMyNicknameDto
+import org.sopt.at.ui.common.networking.ServicePool
 import org.sopt.at.ui.theme.TvingTheme.colors
-
-class MyActivity : ComponentActivity() {
-    private var loggedInId: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // 로그인에서 넘어온 정보 받기
-        loggedInId = intent.getStringExtra("id")
-
-        enableEdgeToEdge()
-        setContent {
-            TvingTheme {
-                loggedInId?.let {
-                    MyScreen(
-                        profileId = it
-                    )
-                }
-            }
-        }
-    }
-}
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Composable
-fun MyScreen(
-    profileId: String
-) {
+fun MyScreen(navController: NavController) {
     val context = LocalContext.current
-    val intent = Intent(context, SignInActivity::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+    var nickname by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        UserDataStore.getUserId(context).collect { userId ->
+            if (userId != null) {
+                ServicePool.userService.getMyNickname(userId)
+                    .enqueue(object : Callback<ResponseMyNicknameDto> {
+                        override fun onResponse(
+                            call: Call<ResponseMyNicknameDto>,
+                            response: Response<ResponseMyNicknameDto>
+                        ) {
+                            if (response.isSuccessful && response.body()?.success == true) {
+                                nickname = response.body()?.data?.nickname ?: ""
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ResponseMyNicknameDto>, t: Throwable) {
+                            Log.e("MyScreen", "내 닉네임 조회 api 실패: ${t.message}")
+                        }
+                    })
+            } else {
+                Log.e("MyScreen", "내 닉네임 조회 api 실패: userId 없음")
+            }
+        }
     }
 
     Column(
@@ -89,14 +91,14 @@ fun MyScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                imageVector = ImageVector.vectorResource(R.drawable.img_profile),
+                painter = painterResource(R.drawable.img_profile),
                 contentDescription = stringResource(R.string.desc_profile_image),
                 modifier = Modifier
                     .size(60.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
-                text = profileId,
+                text = nickname,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = colors.BasicWhite
@@ -110,16 +112,8 @@ fun MyScreen(
             containerColor = colors.BasicBlack,
             contentColor = colors.Gray3,
             text = stringResource(R.string.logout),
-            onClick = { context.startActivity(intent) },
+            onClick = { /* TODO: SignInScreen으로 이동 */ },
             strokeColor = colors.Gray3
         )
     }
-}
-
-@Preview
-@Composable
-fun MyScreenPreview() {
-    MyScreen(
-        profileId = "홍길동"
-    )
 }
